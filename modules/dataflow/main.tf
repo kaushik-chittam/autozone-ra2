@@ -25,19 +25,15 @@ resource "google_dataflow_job" "dataflow_job" {
     inputFile = var.inputFilePattern
     output    = var.outputFilePattern
   }
-  /*
   transform_name_mapping       = var.transform_name_mapping
   max_workers                  = var.max_workers
   on_delete                    = var.on_delete
   skip_wait_on_job_termination = var.skip_wait_on_job_termination
   service_account_email        = var.service_account_email
-  network                      = var.network
-  subnetwork                   = var.subnetwork
   machine_type                 = var.machine_type
   #kms_key_name = google_kms_crypto_key.main.id
   #ip_configuration = var.ip_configuration
   additional_experiments  = var.additional_experiments
   enable_streaming_engine = var.enable_streaming_engine
-  */
 }
 

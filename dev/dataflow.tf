@@ -1,9 +1,9 @@
 module "dataflow_config" {
-  source            = "../modules/dataflow"
-  project_id        = var.project_id
-  region            = var.region
-  zone              = var.zone
-  network           = "az-test-network"
+  source     = "../modules/dataflow"
+  project_id = var.project_id
+  region     = var.region
+  zone       = var.zone
+  network    = "az-test-network"
   #subnetwork        = "https://www.googleapis.com/compute/v1/projects/az-test-355718/regions/us-central1/subnetworks/az-test-subnet"
   subnetwork        = "https://www.googleapis.com/compute/v1/projects/snt-demo1/regions/us-central1/subnetworks/az-test-subnet"
   dataflow_job_name = "sample_workflow1"
@@ -19,7 +19,7 @@ module "dataflow_config" {
 }
 
 module "dataflow-bucket" {
-  source     = "../modules/cloud_storage"
+  source = "../modules/cloud_storage"
   #name       = "dataflow_sample_test_bucket1"
   name       = "dataflow_sample_test_bucket"
   region     = var.region

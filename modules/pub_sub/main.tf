@@ -18,42 +18,37 @@ resource "google_pubsub_topic" "pubsub_topic" {
   */
 }
 
-
 resource "google_pubsub_subscription" "pubsub_pull_subscription" {
-  project = var.project_id
-  name    = lower("${var.subscription_name}-${var.environment}")
-  topic   = google_pubsub_topic.pubsub_topic.name
-  labels  = local.labels
+  for_each = var.subscription_details
+  project  = var.project_id
+  name     = lower("${each.key}-${var.environment}")
+  topic    = google_pubsub_topic.pubsub_topic.name
+  labels   = local.labels
   expiration_policy {
-    ttl = var.ttl
+    ttl = each.value.ttl
   }
   push_config {
     oidc_token {
-      service_account_email = var.service_account_email
-      audience              = var.audience
+      service_account_email = each.value.service_account_email
+      audience              = each.value.audience
     }
-    push_endpoint = var.push_endpoint
-    attributes    = var.attributes
+    push_endpoint = each.value.push_endpoint
+    //attributes    = each.value.attributes
   }
-  filter = var.filter
+  filter = each.value.filter
+  /*
   dead_letter_policy {
-    dead_letter_topic     = var.dead_letter_topic
-    max_delivery_attempts = var.max_delivery_attempts
-  }
+    dead_letter_topic     = each.value.dead_letter_topic
+    max_delivery_attempts = each.value.max_delivery_attempts
+  }*/
   retry_policy {
-    minimum_backoff = var.minimum_backoff
-    maximum_backoff = var.maximum_backoff
+    minimum_backoff = each.value.minimum_backoff
+    maximum_backoff = each.value.maximum_backoff
   }
-  enable_exactly_once_delivery = var.enable_exactly_once_delivery
-  enable_message_ordering = var.enable_message_ordering
-  
-  message_retention_duration = var.message_retention_duration
-  retain_acked_messages      = var.retain_acked_messages
-  ack_deadline_seconds       = var.ack_deadline_seconds
-}
+  enable_exactly_once_delivery = each.value.enable_exactly_once_delivery
+  enable_message_ordering      = each.value.enable_message_ordering
 
-resource "google_project_iam_member" "project" {
-  project = var.project_id
-  role    = "roles/iam.serviceAccountTokenCreator"
-  member  = "service-${var.project_number}@gcp-sa-pubsub.iam.gserviceaccount.com"
+  message_retention_duration = var.message_retention_duration
+  retain_acked_messages      = each.value.retain_acked_messages
+  ack_deadline_seconds       = each.value.ack_deadline_seconds
 }

@@ -15,9 +15,9 @@ module "enable_services" {
     #"container.googleapis.com",         #Kubernetes Engine API
     "cloudfunctions.googleapis.com", #Cloud Functions API
     "workflows.googleapis.com",      #Workflows API
-    "dataflow.googleapis.com",        #Dataflow API
+    "dataflow.googleapis.com",       #Dataflow API
     #"orgpolicy.googleapis.com",          #Organization Policy API
     "cloudkms.googleapis.com", #Cloud Key Management Service (KMS) API
-    "eventarc.googleapis.com",  #Eventarc API
+    "eventarc.googleapis.com", #Eventarc API
   ]
 }

@@ -55,7 +55,7 @@ variable "max_workers" {
 variable "on_delete" {
   description = "One of 'drain' or 'cancel'. Specifies behavior of deletion during terraform destroy."
   type        = string
-  default     = ""
+  default     = "drain"
 }
 
 variable "skip_wait_on_job_termination" {
