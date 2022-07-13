@@ -6,34 +6,38 @@ module "workflow_config" {
   //set the below configs as needed
   account_id      = "workflow"
   display_name    = "workflow account"
-  workflow_name   = "workflow_test"
+  workflow_name   = "az-workflow-1"
+  service_account = "${var.project_number}-compute@developer.gserviceaccount.com"
   description     = "Sample Workflow"
   source_contents = <<-EOF
-  # This is a sample workflow, feel free to replace it with your source code
-  #
-  # This workflow does the following:
-  # - reads current time and date information from an external API and stores
-  #   the response in CurrentDateTime variable
-  # - retrieves a list of Wikipedia articles related to the day of the week
-  #   from CurrentDateTime
-  # - returns the list of articles as an output of the workflow
-  # FYI, In terraform you need to escape the $$ or it will cause errors.
-
-  - getCurrentTime:
-      call: http.get
-      args:
-          url: https://us-central1-workflowsample.cloudfunctions.net/datetime
-      result: CurrentDateTime
-  - readWikipedia:
-      call: http.get
-      args:
-          url: https://en.wikipedia.org/w/api.php
-          query:
-              action: opensearch
-              search: $${CurrentDateTime.body.dayOfTheWeek}
-      result: WikiResult
-  - returnOutput:
-      return: $${WikiResult.body[1]}
+main:
+  params: [event]
+  steps:
+    - decode_pubsub_message:
+        assign:
+           - base64: $${base64.decode(event.data.message.data)}
+           - message: $${text.decode(base64)}
+        next: conditionalSwitch
+    - conditionalSwitch:
+        switch:
+          - condition: $${message=="workflow"}
+            next: cloud_run1
+          - condition: $${message=="workflow1"}
+            next: cloud_function1
+        next: default
+    - cloud_run1:
+        call: http.post
+        args:
+          url: https://az-test-app-2-vrf23xlkza-uc.a.run.app
+          auth:
+            type: OIDC
+        result: floor_result
+    - return_result:
+        return: $${floor_result}
+    - cloud_function1:
+        return: "Hello from Cloud Function"
+    - default: 
+        return: "Hello from Workflow"
 EOF
   depends_on      = [module.enable_services]
 }

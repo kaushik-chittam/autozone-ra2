@@ -42,6 +42,12 @@ variable "display_name" {
   default     = ""
 }
 
+variable "service_account" {
+  description = "Service Account"
+  type        = string
+  default     = ""
+}
+
 variable "gcp_az_labels" {
   description = "Required labels for AutoZone"
   type = object({

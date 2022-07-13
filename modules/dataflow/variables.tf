@@ -141,3 +141,9 @@ variable "key_rotation_period" {
   type    = string
   default = "7776000s"
 }
+
+variable "parameters" {
+  description = "A map of key/value pairs for the dataflow job."
+  type        = map(string)
+  default     = {}
+}

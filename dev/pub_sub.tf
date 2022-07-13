@@ -7,11 +7,10 @@ module "pub_sub_config1" {
   message_retention_duration = "1200s"
   subscription_details = {
     subscription1 = {
-      service_account_email = "${var.project_number}-compute@developer.gserviceaccount.com"
-      audience              = ""
-      push_endpoint         = "https://pubsub.googleapis.com/v1/topic2-dev:publish"
-      //attributes                   = "x-goog-version"
-      filter                       = "attributes : \"pubsub\""
+      service_account_email        = ""
+      audience                     = ""
+      push_endpoint                = ""
+      filter                       = ""
       dead_letter_topic            = ""
       max_delivery_attempts        = 5
       minimum_backoff              = ""
@@ -23,10 +22,9 @@ module "pub_sub_config1" {
       ack_deadline_seconds         = 20
     },
     subscription2 = {
-      service_account_email = "${var.project_number}-compute@developer.gserviceaccount.com"
-      audience              = ""
-      push_endpoint         = "https://workflowexecutions.googleapis.com/v1/projects/snt-demo1/locations/us-central1/workflows/workflow-1/executions"
-      //attributes                   = {}
+      service_account_email        = "${var.project_number}-compute@developer.gserviceaccount.com"
+      audience                     = ""
+      push_endpoint                = "https://workflowexecutions.googleapis.com/v1/projects/az-test-355718/locations/us-central1/workflows/workflow-1/executions"
       filter                       = ""
       dead_letter_topic            = ""
       max_delivery_attempts        = 5
@@ -52,10 +50,9 @@ module "pub_sub_config2" {
   message_retention_duration = "1200s"
   subscription_details = {
     subscription3 = {
-      service_account_email = "${var.project_number}-compute@developer.gserviceaccount.com"
-      audience              = ""
-      push_endpoint         = "https://az-test-app-1-vrf23xlkza-uc.a.run.app"
-      //attributes                   = "x-goog-version"
+      service_account_email        = "${var.project_number}-compute@developer.gserviceaccount.com"
+      audience                     = ""
+      push_endpoint                = "https://az-test-app-1-vrf23xlkza-uc.a.run.app"
       filter                       = ""
       dead_letter_topic            = ""
       max_delivery_attempts        = 5

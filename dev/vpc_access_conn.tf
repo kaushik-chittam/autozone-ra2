@@ -9,8 +9,7 @@ module "vpc_access_connector_config" {
     max_throughput = 1000
     min_throughput = 200
   }
-  #network_project_id = "az-test-355718"
-  network_project_id = "snt-demo1"
+  network_project_id = "az-test-355718"
   subnetwork_name    = "az-test-subnet"
 
   depends_on = [module.enable_services]

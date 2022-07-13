@@ -11,7 +11,7 @@ resource "google_eventarc_trigger" "trigger" {
   matching_criteria {
     attribute = "type"
     value     = var.value
-    operator  = "" #change
+    operator  = ""
   }
   destination {
     workflow = var.workflow
@@ -31,12 +31,10 @@ resource "google_eventarc_trigger" "trigger" {
         }
     */
   }
-  /*
   transport {
-    pubsub = {
-      subscription = var.subscription
-      topic        = var.topic
+    pubsub {
+      // subscription = var.subscription
+      topic = var.topic
     }
   }
-  */
 }

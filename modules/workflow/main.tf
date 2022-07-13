@@ -12,7 +12,7 @@ resource "google_workflows_workflow" "workflow_job" {
   region          = var.region
   project         = var.project_id
   description     = var.description
-  service_account = google_service_account.workflows_service_account.id
+  service_account = var.service_account
   labels          = local.labels
   #name_prefix     = var.name_prefix
   source_contents = var.source_contents
