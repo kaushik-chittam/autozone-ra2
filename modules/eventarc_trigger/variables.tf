@@ -13,18 +13,6 @@ variable "service_account" {
   type        = string
 }
 
-variable "value" {
-  description = "The value for the attribute"
-  type        = string
-  default     = ""
-}
-
-variable "operator" {
-  description = " The operator used for matching the events with the value of the filter"
-  type        = string
-  default     = ""
-}
-
 variable "path" {
   description = "The relative path on the Cloud Run service the events should be sent to."
   type        = string
@@ -92,4 +80,13 @@ variable "labels" {
   description = "A map of key/value pairs to assign to all resources in this root-module."
   type        = map(string)
   default     = {}
+}
+
+variable "matching_criteria" {
+  description = "Required labels for AutoZone"
+  type = map(object({
+    attribute = string
+    value1    = string
+    operator  = string
+  }))
 }

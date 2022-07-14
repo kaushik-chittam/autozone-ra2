@@ -8,10 +8,14 @@ resource "google_eventarc_trigger" "trigger" {
   location        = var.location
   project         = var.project_id
   service_account = var.service_account
-  matching_criteria {
-    attribute = "type"
-    value     = var.value
-    operator  = ""
+
+  dynamic "matching_criteria" {
+    for_each = var.matching_criteria
+    content {
+      attribute = matching_criteria.value.attribute
+      value     = matching_criteria.value.value1
+      operator  = matching_criteria.value.operator
+    }
   }
   destination {
     workflow = var.workflow
