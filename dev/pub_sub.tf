@@ -10,7 +10,7 @@ module "pub_sub_config1" {
       service_account_email        = ""
       audience                     = ""
       push_endpoint                = ""
-      filter                       = ""
+      filter                       = "attributes.name=\"pubsub\""
       dead_letter_topic            = ""
       max_delivery_attempts        = 5
       minimum_backoff              = ""
@@ -25,7 +25,7 @@ module "pub_sub_config1" {
       service_account_email        = "${var.project_number}-compute@developer.gserviceaccount.com"
       audience                     = ""
       push_endpoint                = "https://workflowexecutions.googleapis.com/v1/projects/az-test-355718/locations/us-central1/workflows/workflow-1/executions"
-      filter                       = ""
+      filter                       = "attributes.name=\"workflow\""
       dead_letter_topic            = ""
       max_delivery_attempts        = 5
       minimum_backoff              = ""
